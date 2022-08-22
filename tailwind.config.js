@@ -9,7 +9,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      Jakarta: ['Plus Jakarta Sans, sans-serif']
+      Roboto: ['Roboto Mono, monospace']
     },
     container: {
       padding: '2rem',
