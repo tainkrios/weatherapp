@@ -7,6 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import AsyncCityView from "./AsyncCityView.vue";
-
+import AsyncCityView from "@/components/AsyncCityView.vue";
 </script>

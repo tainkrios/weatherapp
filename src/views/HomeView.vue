@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import axios from "axios"
 import { useRouter } from 'vue-router';
+import CityList from '@/components/CityList.vue';
 
 
 const searchQuery = ref(""),
@@ -68,6 +69,14 @@ const getSearchResults = () => {
           </li>
         </template>
       </ul>
+    </div>
+    <div class="flex flex-col gap-4">
+      <Suspense>
+        <CityList />
+        <template #fallback>
+          <p>Loading...</p>
+        </template>
+      </Suspense>
     </div>
   </main>
 </template>

@@ -59,12 +59,12 @@ import { uid } from 'uid';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import BaseModal from './BaseModal.vue';
 
-const savedCities = ref([])
+const savedCities = ref()
 const route = useRoute()
 const router = useRouter()
 const addCity = () => {
   if (localStorage.getItem('savedCities')) {
-    savedCities.value = JSON.parse(localStorage.getItem("savedCities") || '{}')
+    savedCities.value = JSON.parse(localStorage.getItem("savedCities") || '[]')
   }
 
   const locationObj = {
