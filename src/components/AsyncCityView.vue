@@ -23,7 +23,6 @@
             new Date(weatherData.currentTime).toLocaleTimeString(
               "en-us",
               {
-                // timeSTyle: 'short',
                 hour12: false
               }
             )
@@ -48,25 +47,18 @@
       <div class="mx-8 text-white">
         <h2 class="mb-4">Hourly Weather</h2>
         <div class="flex gap-10 overflow-x-scroll noscroll">
-          <div 
-            v-for="hourData in weatherData.hourly" 
-            :key="hourData.dt"
-            class="flex flex-col gap-4 items-center"
-          >
+          <div v-for="hourData in weatherData.hourly" :key="hourData.dt" class="flex flex-col gap-4 items-center">
             <p class="w-[34px] whitespace-nowrap text-center text-md">
               {{
-                new Date(hourData.currentTime).toLocaleTimeString('en-us', {
-                  hour: 'numeric',
-                  hour12: false
-                })
+                  new Date(hourData.currentTime).toLocaleTimeString('en-us', {
+                    hour: 'numeric',
+                    hour12: false
+                  })
               }}
             </p>
-            <img 
-              class="w-auto h-[50px] object-cover" 
-              :src="`http://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`" 
-              alt="" 
-            />
-            <p class="text-xl">{{Math.round(hourData.temp)}}&deg;</p>
+            <img class="w-auto h-[50px] object-cover"
+              :src="`http://openweathermap.org/img/wn/${hourData.weather[0].icon}@2x.png`" alt="" />
+            <p class="text-xl">{{ Math.round(hourData.temp) }}&deg;</p>
           </div>
         </div>
       </div>
@@ -77,42 +69,42 @@
     <div class="max-w-screen-md w-full py-12">
       <div class="mx-8 text-white">
         <h2 class="mb-4">Weekly Weather</h2>
-        <div 
-          v-for="day in weatherData.daily" 
-          :key="day.dt"
-          class="flex items-center"
-        >
+        <div v-for="day in weatherData.daily" :key="day.dt" class="flex items-center">
           <p class="flex-1">
             {{
-              new Date(day.dt * 1000).toLocaleDateString(
-                'en-us',
-                {
-                  weekday: 'long'
-                }
-              )
+                new Date(day.dt * 1000).toLocaleDateString(
+                  'en-us',
+                  {
+                    weekday: 'long'
+                  }
+                )
             }}
           </p>
-          <img 
-            class="w-[50px] h-[50px] object-cover"
-            :src="`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`" 
-            alt="" 
-          />
+          <img class="w-[50px] h-[50px] object-cover"
+            :src="`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`" alt="" />
           <div class="flex gap-2 flex-1 justify-end">
-            <p>Max: {{Math.round(day.temp.max)}}&deg;</p>
-            <p>Min:  {{Math.round(day.temp.min)}}&deg;</p>
-          </div> 
+            <p>Max: {{ Math.round(day.temp.max) }}&deg;</p>
+            <p>Min: {{ Math.round(day.temp.min) }}&deg;</p>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="flex items-center gap-2 py-12 text-white cursor-pointer hover:text-red-500 duration-150"
+      @click="removeCity">
+      <i class="fa-solid fa-trash-can"></i>
+      <p>Remove city</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import axios from 'axios';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter, type LocationQueryValue } from 'vue-router';
 
 const route = useRoute()
+const router = useRouter()
 const APIKey = 'f5352e084d98d5876fd9a6a2504e64e9'
+
 const getWeatherData = async () => {
   try {
     const weatherData = await axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${route.query.lat}&lon=${route.query.lng}&appid=${APIKey}&units=metric`)
@@ -135,7 +127,16 @@ const getWeatherData = async () => {
 }
 
 const weatherData = await getWeatherData()
-console.log('weatherData', weatherData)
+
+const removeCity = () => {
+  const cities = JSON.parse(localStorage.getItem('savedCities') || '[]')
+  const updatedCities = cities.filter((city: { id: LocationQueryValue | LocationQueryValue[]; }) => city.id !== route.query.id)
+  localStorage.setItem('savedCities', JSON.stringify(updatedCities))
+  router.push({
+    name: 'home'
+  })
+}
+
 </script>
 
 <style>
