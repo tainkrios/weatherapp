@@ -89,8 +89,11 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center gap-2 py-12 text-white cursor-pointer hover:text-red-500 duration-150"
-      @click="removeCity">
+    <div
+      v-if="route.query.id"
+      class="flex items-center gap-2 py-12 text-white cursor-pointer hover:text-red-500 duration-150"
+      @click="removeCity"
+    >
       <i class="fa-solid fa-trash-can"></i>
       <p>Remove city</p>
     </div>
