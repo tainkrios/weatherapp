@@ -1,6 +1,8 @@
 # weatherapp
 
-This template should help get you started developing with Vue 3 in Vite.
+This app was written in Vue 3 and TypeScript.
+I'm using the mapbox.io geocoding API for searching and the openweathermap API for showing the weather.
+I also use 'localstorage' to store data and Tailwindcss for styles.
 
 ## Recommended IDE Setup
 
