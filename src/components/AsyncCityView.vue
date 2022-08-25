@@ -145,7 +145,18 @@ const removeCity = () => {
 </script>
 
 <style>
+
 .noscroll::-webkit-scrollbar {
-  display: none;
+  height: 0.25rem;
+}
+
+.noscroll::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 20px;
+}
+
+.noscroll::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 20px;
 }
 </style>
