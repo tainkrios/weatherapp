@@ -14,6 +14,8 @@ import { useRouter } from 'vue-router';
 import CityCard from './CityCard.vue';
 
 const savedCities = ref()
+const router = useRouter()
+
 const getCities = async () => {
   if (localStorage.getItem('savedCities')) {
     savedCities.value = JSON.parse(
@@ -40,7 +42,6 @@ const getCities = async () => {
 }
 await getCities()
 
-const router = useRouter()
 const goToCityView = (city: 
   { 
     state: string, 

@@ -62,6 +62,8 @@ import BaseModal from './BaseModal.vue';
 const savedCities = ref()
 const route = useRoute()
 const router = useRouter()
+const modalActive = ref()
+
 const addCity = () => {
   if (localStorage.getItem('savedCities')) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities") || '[]')
@@ -85,7 +87,6 @@ const addCity = () => {
   router.replace({ query })
 }
 
-const modalActive = ref()
 const toggleModal = () => {
   modalActive.value = !modalActive.value
 }
