@@ -34,14 +34,17 @@ import CityList from '@/components/CityList.vue';
 import CityCardSkeleton from '../components/CityCardSkeleton.vue';
 
 
+
 const searchQuery = ref("")
 const queryTimeout = ref()
-const mapboxAPIKey = 'pk.eyJ1IjoidGFpbmtyaW9zIiwiYSI6ImNsNnVzZXhjMDFnMHUzZHBibTNlajd1c24ifQ.W017kDT4jrcrBMfAUWZdQg'
+const mapboxAPIKey = import.meta.env.VITE_MAPBOX_API_KEY
 const mapboxSearchResults = ref()
 const searchError = ref()
 const router = useRouter()
 
-const previewCity = (searchResult: { place_name: { split: (arg0: string) => [any, any]; }; geometry: { coordinates: any[]; }; }) => {
+console.log(mapboxAPIKey);
+
+const previewCity = (searchResult: { place_name: { split: (arg0: string) => [string, string]; }; geometry: { coordinates: any[]; }; }) => {
   const [city, state] = searchResult.place_name.split(',')
   router.push({
     name: 'cityView',
