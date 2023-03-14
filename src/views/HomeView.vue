@@ -42,8 +42,6 @@ const mapboxSearchResults = ref()
 const searchError = ref()
 const router = useRouter()
 
-console.log(mapboxAPIKey);
-
 const previewCity = (searchResult: { place_name: { split: (arg0: string) => [string, string]; }; geometry: { coordinates: any[]; }; }) => {
   const [city, state] = searchResult.place_name.split(',')
   router.push({
